@@ -1,4 +1,12 @@
+
 from crewai import Agent
+from langchain_ollama import ChatOllama
+
+llm = ChatOllama(
+    model="llama2:13b",             # exact name from `ollama list`
+    base_url="http://localhost:11434/v1",
+    temperature=0.7
+)
 
 ba_agent = Agent(
     role="Business Analyst",
@@ -8,7 +16,8 @@ ba_agent = Agent(
         "You think in user journeys, acceptance criteria, and business value."
     ),
     verbose=True,
-    allow_delegation=False
+    allow_delegation=False,
+    llm=llm
 )
 
 engineer_a = Agent(
@@ -19,7 +28,8 @@ engineer_a = Agent(
         "DevOps, AWS, and CI/CD."
     ),
     verbose=True,
-    allow_delegation=True
+    allow_delegation=True,
+    llm=llm
 )
 
 
@@ -31,7 +41,8 @@ engineer_b = Agent(
         "security, and scalability."
     ),
     verbose=True,
-    allow_delegation=True
+    allow_delegation=True,
+    llm=llm
 )
 
 qa_agent = Agent(
@@ -42,6 +53,7 @@ qa_agent = Agent(
         "unless quality standards are met."
     ),
     verbose=True,
-    allow_delegation=False
+    allow_delegation=False,
+    llm=llm
 )
 
